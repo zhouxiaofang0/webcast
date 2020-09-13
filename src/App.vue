@@ -1,32 +1,24 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view />
   </div>
 </template>
+<style lang='scss'>
+body{background: #344a5f;}
+#app{ margin:0px; padding:0px;}
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
+//登陆 注册样式
+.form_item {
+  .el-form-item__content{
+    margin-left: 0px!important;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+    label{color: #fff;}
 
-    &.router-link-exact-active {
-      color: #42b983;
+    .el-button--danger{
+        width: 100%;
     }
   }
 }
+
 </style>
