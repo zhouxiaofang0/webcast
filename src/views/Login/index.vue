@@ -10,7 +10,7 @@
             <div class="login_box" v-if="loginTxt[0].is_active == true">
                 <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                     <el-form-item prop="email" class="form_item">
-                        <label>邮箱</label>
+                        <label>邮箱  </label>
                         <el-input type="email" v-model="ruleForm.email" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item prop="pass" class="form_item">
