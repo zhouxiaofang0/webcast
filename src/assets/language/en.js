@@ -15,6 +15,23 @@ module.exports = {
         VenueInfo:"Pacific Place, Supreme Court Road, ",
         VenueInfo1:"Central Hong Kong SAR",
       },
-      loginUsername:'please input email or phone',
+      downBox:{
+        Powerpoint:'Powerpoint',
+        PressRelease:'Press Release',
+        Announcement:'Announcement',
+        Script:'Script',
+      },
+      homeFoot:'Name of the powerpoint - 2018 Interim Result Presentation',
+  },
+  register:{
+    title:'register.',
+    ruleForm:{
+      firstname:'',
+      lastname:'',
+    }
+  },
+
+  login:{
+    title:'Login.'
   }
 }

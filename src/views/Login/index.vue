@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import registe from "../../components/Registe/registe.vue";
+import registe from "../../components/registe/index.vue";
 import {stripscript ,EmailValidate ,PassValidate ,CodeValidate} from "@/utils/validate"
 export default {
     name:"Login",

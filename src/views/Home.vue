@@ -1,62 +1,103 @@
 <template>
     <div class="wrapBox">
         <div class="flexBox_colum_ipad justify_between_stretch">
-             <div class="col_50 col_ipad_100 registrationBox">
-                 <router-link  :to="{path:'/login'}" class="loginA"><img  src="../assets/images/logo.png"/></router-link>
-                 <h1 class="pad_bot30">{{$t('home.Registration')}}</h1>
-                 <div class="eventBox">
-                     <p>{{$t('home.eventBox.SMtitle')}}</p>
-                     <p><span class="eventTit"><i class="fa fa-calendar"></i>{{$t('home.eventBox.Datatitle')}}</span> <span>{{$t('home.eventBox.DataInfo')}}</span></p>
-                     <p><span class="eventTit"><i class="fa fa-clock-o"></i>{{$t('home.eventBox.Timetitle')}}</span> <span>{{$t('home.eventBox.TimeInfo')}}</span></p>
-                     <p><span class="eventTit"><i class="fa fa-map-marker font20"></i>{{$t('home.eventBox.VenueTitle')}}</span> <span>{{$t('home.eventBox.VenueInfo')}}<br/>{{$t('home.eventBox.VenueInfo1')}}</span></p>
-                 </div>
+             <div class="col_50 col_ipad_100 registrationBox contarin">
+                <div class="flex_clum justify_between_stretch">
+                    <div class="LogoBox"><router-link  :to="{path:'/login'}" class="loginA"><img  src="../assets/images/logo.png"/></router-link></div>
+                    <div class="scroll-content homeLefth">   
+                        <div class="regiseDown" v-if="!loginVisible">
+                            <h1 class="pad_bot30">{{$t('home.Registration')}}</h1>
+                            <div class="eventBox">
+                                <p>{{$t('home.eventBox.SMtitle')}}</p>
+                                <p><span class="eventTit"><i class="el-icon-date"></i>{{$t('home.eventBox.Datatitle')}}</span> <span>{{$t('home.eventBox.DataInfo')}}</span></p>
+                                <p><span class="eventTit"><i class="el-icon-alarm-clock"></i>{{$t('home.eventBox.Timetitle')}}</span> <span>{{$t('home.eventBox.TimeInfo')}}</span></p>
+                                <p><span class="eventTit"><i class="el-icon-location font20"></i>{{$t('home.eventBox.VenueTitle')}}</span> <span>{{$t('home.eventBox.VenueInfo')}}<br/>{{$t('home.eventBox.VenueInfo1')}}</span></p>
+                            </div>
 
-                 <h2 class="text_upper regist_btn">{{$t('home.Registration')}}</h2>
+                            <h2 class="text_upper regist_btn" @click="dialogRegisteVisible = true">{{$t('home.Registration')}}</h2>
+
+                            <div class="downBox flex_w justify_between_stretch">
+                                <router-link  :to="{path:'/login'}"><i class="el-icon-download"></i>{{$t('home.downBox.Powerpoint')}}</router-link>
+                                <router-link  :to="{path:'/login'}"><i class="el-icon-download"></i>{{$t('home.downBox.PressRelease')}}</router-link>
+                                <router-link  :to="{path:'/login'}"><i class="el-icon-download"></i>{{$t('home.downBox.Announcement')}}</router-link>
+                                <router-link  :to="{path:'/login'}"><i class="el-icon-download"></i>{{$t('home.downBox.Script')}}</router-link>
+                            </div>
+                        </div>
+
+                        <div class="LoginCompon" v-if="loginVisible">
+                             <h1 class="pad_bot30">{{$t('login.title')}}</h1>
+                             <login :dialogRegisteVisible='dialogRegisteVisible'></login>
+                        </div>
+                    </div>
+
+                    <footerBox></footerBox>
+                </div>
+                <div class="dialogRegiste contarin" :class="{'dialogRegisteVisible':dialogRegisteVisible}">
+                    <div class="flexBox justify_between_stretch pad_bot50">
+                        <h2 class="text_upper color_w">{{$t('register.title')}}</h2>
+                        <span class="RegisteClose" @click="dialogRegisteVisible = false"><i class="el-icon-close"></i></span>
+                    </div>
+                    <div class="scroll-content regisiteScroll">
+                        <registe :loginVisible='loginVisible'></registe>
+                    </div>
+                </div>
              </div>
              <div class="col_50 col_ipad_100 antaBackground">
-                 
-                 <div>
-                    <a @click="changeLanguage($t('language.lang1'))">{{$t('language.lang1')}}</a> 
-                    <a @click="changeLanguage($t('language.lang2'))">{{$t('language.lang2')}} </a>
+                 <div class="com_Abso headerlang">
+                     <headerBox></headerBox>
+                 </div>
+
+                 <div class="com_Abso trans_xy homgImg"><img src="../assets/images/homgImg.jpg"/> </div>
+                 <div class="com_Abso homeFoot">
+                     <p class="text_center">{{$t('home.homeFoot')}}</p>
                  </div>
              </div>
         </div>
     </div>
 </template>
 <script>
+import {bus} from '../utils/bus'
+import footerBox from '../components/common/footerBox.vue';
+import headerBox from '../components/common/headerBox.vue';
+import registe from '../components/registe/index.vue';
+import login from '../components/login/index.vue';
 export default {
-    name:'Home',
-    data:{
-        return:{}
+    name:'home',
+    data(){
+        return{
+            dialogRegisteVisible:false,
+            loginVisible:false,
+        }
+    },
+    components:{footerBox,headerBox,registe,login},
+    mounted(){
+        bus.$on('loginfun',this.loginVisiblefun);
+        bus.$on('registefun',this.registeVisiblefun);
     },
     methods:{
-        changeLanguage(lang){
-            console.log(lang);
-            if(lang=="简体"){
-                this.$i18n.locale='sc';   //设置中英文模式
-            }else if(lang=="繁体"){
-                this.$i18n.locale='tc'; //设置中英文模式
-            }else if(lang=="EN"){
-                this.$i18n.locale='en'; 
-            }else{
-                his.$i18n.locale='en';
-            }
-            localStorage.setItem('languageSet',this.$i18n.locale)   //将用户设置存储到localStorage以便用户下次打开时使用此设置
-        },
+       loginVisiblefun(bool){
+           this.dialogRegisteVisible=!bool;
+           this.loginVisible = bool;
+       },
+       registeVisiblefun(bool){
+           this.dialogRegisteVisible=bool;
+           this.loginVisible = !bool;
+       }
     }
 }
 </script>
 <style lang="scss" scoped>
 .flexBox_colum_ipad{
-    height: auto;
-    min-height: 100vh;
+    height: 100vh;
+
+    .homeLefth{position: relative;height:auto; flex:1;}
     .registrationBox{
         background: #f5f5f5;
-        height: 100%;
-        padding: 80px 160px 35px 160px;
+        // height: 100%; 
     }
     .antaBackground{
-        background: chartreuse;
+        background:url("../assets/images/anta-background.jpg") center no-repeat;
+        background-size: cover;
         height: 100%;
     }
 
@@ -85,9 +126,52 @@ export default {
         color: #fff;
         text-align: center;
         margin-top:20px;
+        cursor: pointer;
     }
 }
-
+.downBox{position: relative; margin-top: 35px;}
+.downBox a{width: 48%;padding: 20px 30px;text-align: left; border-radius: 50px;
+display: block;border:1px solid #e30613;color: #e30613;margin-top: 20px;}
+.downBox a i{display: inline-block; margin-right: 10px;}
 a{display: block; position: relative;}
-a.loginA{margin-bottom: 5rem;}
+.LogoBox{position: relative; height:200px;}
+
+.homgImg{width: 100%; height: auto;}
+
+.homeFoot{width: 100%; padding: 30px 0px; background: rgba(0,0,0,0.5); bottom: 0px;color: #fff;}
+
+.headerlang{right: 0px; top:80px ; z-index: 3;}
+.dialogLogin{
+
+}
+.dialogRegiste{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    padding-right: 10px;
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+        transition: all 1.2s;
+    -moz-transition: all 1.2s;
+    -webkit-transition: all 1.2s;
+    -o-transition: all 1.2s;
+    background: rgba(0,0,0,0.8);
+}
+.dialogRegisteVisible{
+  transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+}
+
+.regisiteScroll{position: relative; width: 100%;height: 85%;}
+
+span.RegisteClose{position: relative;padding-right:13%;color: #fff; font-size:30px; cursor: pointer;}
+@media (max-width:1440px){
+	.LogoBox{height: 150px;}
+}
 </style>
