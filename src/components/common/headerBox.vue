@@ -1,44 +1,60 @@
 <template>
-  <div class="headerBox flexBox">
-        <a @click="changeLanguage($t('language.lang1'))">{{$t('language.lang1')}}</a> 
-        <span class="cricle"></span>
-        <a @click="changeLanguage($t('language.lang2'))">{{$t('language.lang2')}} </a>
-  </div>
-</template>
+    <div class="header smContent">
+            <div class="flexBox justify_between_center z_indexU">
+                <div class="login">
+                    <router-link :to="{path:'/'}" class="loginA ipad_hide videologo"><img  src="../../assets/images/logo.png"/></router-link>
+                    <router-link :to="{path:'/'}" class="loginA ipad_show videologo"><img  src="../../assets/images/logo_ph2.png"/></router-link>
+                </div>
+                <div class="ph_hide">
+                    <div class="flexBox headerCenter">
+                        <img src="../../assets/images/live_img.png" class="live_img" v-if='liveHide'/>
+                        <p class="vistorControlTit"><span>{{$t('vistorControl.headerTit.title1')}}</span><span>{{$t('vistorControl.headerTit.title2')}}</span></p>
+                    </div>
+                    
+                </div>
+                <div class="userLang">
+                    <div class="userPhoto">
+                        <p class="ipad_show"><span class="icon" @click="helloBool=!helloBool"><img src="../../assets/images/user1.png"/></span></p>
+                        <p class="ipad_hide"><span class="icon"><img src="../../assets/images/user1.png"/></span></p>
+                        <span v-if="helloBool" class="helloName">Hello. Mr. Ringo Chan</span>
+                    </div>
+                    <div class="headerlang">
+                        <langBox></langBox>
+                    </div>
+                </div>
+            
+            </div>
 
+            <div class="ph_show headerCBOX">
+                <div class="flexBox headerCenter">
+                    <img src="../../assets/images/live_img.png" class="live_img" v-if='liveHide'/>
+                    <p class="vistorControlTit"><span>{{$t('vistorControl.headerTit.title1')}}</span><span>{{$t('vistorControl.headerTit.title2')}}</span></p>
+                </div>
+            </div>
+    </div>
+</template>
 <script>
+import langBox from '../../components/common/langBox.vue';
 export default {
     name:'headerBox',
+    props:["liveHide"],
+    components:{langBox},
+    data(){
+        return{
+            helloBool:true,
+        }
+    },
+    created(){
+       
+    },
     methods:{
-        changeLanguage(lang){
-            console.log(lang);
-            if(lang=="简体"){
-                this.$i18n.locale='sc';   //设置中英文模式
-            }else if(lang=="繁体"){
-                this.$i18n.locale='tc'; //设置中英文模式
-            }else if(lang=="EN"){
-                this.$i18n.locale='en'; 
-            }else{
-                his.$i18n.locale='en';
-            }
-            localStorage.setItem('languageSet',this.$i18n.locale)   //将用户设置存储到localStorage以便用户下次打开时使用此设置
-        },
+   
     }
+
 }
 </script>
-
 <style lang="scss" scoped>
-.headerBox{
-  position: relative;
-  padding: 18px 20px 18px 25px;
-  background: #e30613;
-  color: #fff;
-  border-bottom-left-radius: 50px;
-  border-top-left-radius: 50px;;
-
-  span.cricle{
-      position: relative;display: block;width: 5px;height: 5px;background: #fff;border-radius: 50%;
-      margin: 0px 10px; margin-top: 6%;
-  }
-}
+.userLang{display: flex;}
+img.live_img{width: 35px; margin-right: 10px;}
+.headerCenter{align-items: flex-start;}
 </style>

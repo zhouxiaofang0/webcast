@@ -148,15 +148,5 @@ body{
 }
 
 .flexBox {margin-bottom: 25px;}
-.regist_btn{
-        padding: 20px;
-        width: 100%;
-        height: auto;
-        position: relative;
-        border-radius: 50px;
-        background: #e30613;
-        color: #fff;
-        text-align: center;
-        cursor: pointer;
-    }
+
 </style>

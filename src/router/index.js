@@ -17,10 +17,40 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Login/index.vue")
   },
   {
-    path: "/registe",
-    name: "registe",
+    path: "/videoIntro",
+    name: "videoIntro",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../components/registe/index.vue")
+      import(/* webpackChunkName: "about" */ "../views/page/videoIntro.vue")
+  },
+  {
+    path: "/visitorControl",
+    name: "visitorControl",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/page/visitorControl.vue")
+  },
+  {
+    path: "/companyControl",
+    name: "companyControl",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/page/companyControl.vue")
+  },
+  {
+    path: "/adminControl",
+    name: "adminControl",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/page/adminControl.vue")
+  },
+  {
+    path: "/visitorVideo",
+    name: "visitorVideo",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/page/visitorVideo.vue")
+  },
+  {
+    path: "/playbackVideo",
+    name: "playbackVideo",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/page/playbackVideo.vue")
   }
 ];
 

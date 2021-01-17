@@ -21,7 +21,8 @@ module.exports = {
         Announcement:'Announcement',
         Script:'Script',
       },
-      homeFoot:'Name of the powerpoint - 2018 Interim Result Presentation',
+      homeFoot1:'Name of the powerpoint - ',
+      homeFoot2:'2018 Interim Result Presentation',
   },
   register:{
     title:'register.',
@@ -33,5 +34,20 @@ module.exports = {
 
   login:{
     title:'Login.'
+  },
+
+  videoIntro:{
+    skip:"SKIP.",
+    next:'NEXT.',
+  },
+
+  vistorControl:{
+     headerTit:{
+        title1:'Name of the powerpoint -',
+        title2:'2018 Interim Result Presentation',
+     },
   }
+
+
+
 }

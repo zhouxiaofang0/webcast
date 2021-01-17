@@ -1,9 +1,9 @@
 <template>
-    <div class="wrapBox">
+    <div class="wrapBox" :class="{'hiddenBox':dialogRegisteVisible}">
         <div class="flexBox_colum_ipad justify_between_stretch">
              <div class="col_50 col_ipad_100 registrationBox contarin">
                 <div class="flex_clum justify_between_stretch">
-                    <div class="LogoBox"><router-link  :to="{path:'/login'}" class="loginA"><img  src="../assets/images/logo.png"/></router-link></div>
+                    <div class="LogoBox ipad_hide"><router-link  :to="{path:'/'}" class="loginA"><img  src="../assets/images/logo.png"/></router-link></div>
                     <div class="scroll-content homeLefth">   
                         <div class="regiseDown" v-if="!loginVisible">
                             <h1 class="pad_bot30">{{$t('home.Registration')}}</h1>
@@ -17,10 +17,10 @@
                             <h2 class="text_upper regist_btn" @click="dialogRegisteVisible = true">{{$t('home.Registration')}}</h2>
 
                             <div class="downBox flex_w justify_between_stretch">
-                                <router-link  :to="{path:'/login'}"><i class="el-icon-download"></i>{{$t('home.downBox.Powerpoint')}}</router-link>
-                                <router-link  :to="{path:'/login'}"><i class="el-icon-download"></i>{{$t('home.downBox.PressRelease')}}</router-link>
-                                <router-link  :to="{path:'/login'}"><i class="el-icon-download"></i>{{$t('home.downBox.Announcement')}}</router-link>
-                                <router-link  :to="{path:'/login'}"><i class="el-icon-download"></i>{{$t('home.downBox.Script')}}</router-link>
+                                <router-link class="col_ph_100" :to="{path:'/'}"><i class="el-icon-download"></i>{{$t('home.downBox.Powerpoint')}}</router-link>
+                                <router-link class="col_ph_100" :to="{path:'/'}"><i class="el-icon-download"></i>{{$t('home.downBox.PressRelease')}}</router-link>
+                                <router-link class="col_ph_100" :to="{path:'/'}"><i class="el-icon-download"></i>{{$t('home.downBox.Announcement')}}</router-link>
+                                <router-link class="col_ph_100" :to="{path:'/'}"><i class="el-icon-download"></i>{{$t('home.downBox.Script')}}</router-link>
                             </div>
                         </div>
 
@@ -32,33 +32,38 @@
 
                     <footerBox></footerBox>
                 </div>
-                <div class="dialogRegiste contarin" :class="{'dialogRegisteVisible':dialogRegisteVisible}">
-                    <div class="flexBox justify_between_stretch pad_bot50">
-                        <h2 class="text_upper color_w">{{$t('register.title')}}</h2>
-                        <span class="RegisteClose" @click="dialogRegisteVisible = false"><i class="el-icon-close"></i></span>
-                    </div>
-                    <div class="scroll-content regisiteScroll">
-                        <registe :loginVisible='loginVisible'></registe>
-                    </div>
-                </div>
+                
              </div>
              <div class="col_50 col_ipad_100 antaBackground">
                  <div class="com_Abso headerlang">
-                     <headerBox></headerBox>
+                     <langBox></langBox>
                  </div>
-
+                 <div class="LogoBox ipad_show">
+                      <router-link :to="{path:'/'}" class="loginA ph_hide"><img  src="../assets/images/logo.png"/></router-link>
+                      <router-link :to="{path:'/'}" class="loginA ph_show"><img  src="../assets/images/logo_ph.png"/></router-link>
+                 </div>
                  <div class="com_Abso trans_xy homgImg"><img src="../assets/images/homgImg.jpg"/> </div>
                  <div class="com_Abso homeFoot">
-                     <p class="text_center">{{$t('home.homeFoot')}}</p>
+                     <p class="text_center"><span>{{$t('home.homeFoot1')}}</span><span>{{$t('home.homeFoot2')}}</span></p>
                  </div>
              </div>
+        </div>
+
+        <div class="dialogRegiste contarin" :class="{'dialogRegisteVisible':dialogRegisteVisible}">
+            <div class="flexBox justify_between_stretch pad_bot50">
+                <h2 class="text_upper color_w">{{$t('register.title')}}</h2>
+                <span class="RegisteClose" @click="dialogRegisteVisible = false"><i class="el-icon-close"></i></span>
+            </div>
+            <div class="scroll-content regisiteScroll">
+                <registe :loginVisible='loginVisible'></registe>
+            </div>
         </div>
     </div>
 </template>
 <script>
 import {bus} from '../utils/bus'
 import footerBox from '../components/common/footerBox.vue';
-import headerBox from '../components/common/headerBox.vue';
+import langBox from '../components/common/langBox.vue';
 import registe from '../components/registe/index.vue';
 import login from '../components/login/index.vue';
 export default {
@@ -69,10 +74,14 @@ export default {
             loginVisible:false,
         }
     },
-    components:{footerBox,headerBox,registe,login},
+    components:{footerBox,langBox,registe,login},
     mounted(){
         bus.$on('loginfun',this.loginVisiblefun);
         bus.$on('registefun',this.registeVisiblefun);
+    },
+    destroyed(){
+        bus.$off("loginfun");
+        bus.$off("registefun");
     },
     methods:{
        loginVisiblefun(bool){
@@ -106,31 +115,25 @@ export default {
         padding: 40px;
         background: #fff;
         line-height: 1.6;
-        p{padding-bottom: 10px;display: flex;}
+        p{
+            position: relative;
+            padding-bottom: 10px;display: flex;
 
-        span.last-child{flex:1;}
-        span.eventTit{width: 100px;display: inline-block;}
-        span.eventTit i{margin-right: 10px;font-size:18px;}
-        span.eventTit i.font20{font-size: 20px;}
+            span:last-child{flex:1;}
+            span.eventTit{width: 100px;display: inline-block;}
+            span.eventTit i{margin-right: 10px;font-size:18px;}
+            span.eventTit i.font20{font-size: 20px;}
+        }
+
+        
     }
 
     
 
-    .regist_btn{
-        padding: 20px;
-        width: 100%;
-        height: auto;
-        position: relative;
-        border-radius: 50px;
-        background: #e30613;
-        color: #fff;
-        text-align: center;
-        margin-top:20px;
-        cursor: pointer;
-    }
+    
 }
 .downBox{position: relative; margin-top: 35px;}
-.downBox a{width: 48%;padding: 20px 30px;text-align: left; border-radius: 50px;
+.downBox a{width: 48%;padding:0px 30px;height: 60px;line-height: 60px; text-align: left; border-radius: 50px;
 display: block;border:1px solid #e30613;color: #e30613;margin-top: 20px;}
 .downBox a i{display: inline-block; margin-right: 10px;}
 a{display: block; position: relative;}
@@ -140,13 +143,9 @@ a{display: block; position: relative;}
 
 .homeFoot{width: 100%; padding: 30px 0px; background: rgba(0,0,0,0.5); bottom: 0px;color: #fff;}
 
-.headerlang{right: 0px; top:80px ; z-index: 3;}
-.dialogLogin{
-
-}
 .dialogRegiste{
-    position: absolute;
-    width: 100%;
+    position: fixed;
+    width: 50%;
     height: 100vh;
     top: 0px;
     left: 0px;
@@ -166,11 +165,15 @@ a{display: block; position: relative;}
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     -ms-transform: translateX(0);
+    z-index: 6;
 }
 
 .regisiteScroll{position: relative; width: 100%;height: 85%;}
 
 span.RegisteClose{position: relative;padding-right:13%;color: #fff; font-size:30px; cursor: pointer;}
+
+.regist_btn{margin-top: 20px;}
+.LoginCompon{margin-top: 10%;}
 @media (max-width:1440px){
 	.LogoBox{height: 150px;}
 }

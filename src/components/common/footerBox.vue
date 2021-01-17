@@ -12,5 +12,5 @@ export default {
 .footerBox{position: relative;width: 100%; height:100px; overflow: hidden;display: flex;
     align-items: flex-end;
     justify-content: center;}
-a.foot_btn{position: relative; width: 150px; margin: 0px auto;display: block;}
+a.foot_btn{position: relative; width: 162px; margin: 0px auto;display: block;}
 </style>
